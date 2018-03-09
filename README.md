@@ -9,6 +9,9 @@
  
 # Java 구현
  Controller: 데이터를 받아서 넘겨주거나 컨트롤러에서 데이터를 바로 수정하여 넘겨주는 기능.
+ 
  Service: 프로시저의 조건, 예외처리 로직을 구현.
+ 
  DAO: Select query의 결과값을 list 형태로 받거나 input data를 Object 형태로 Insert query에 넘겨주는 기능.
+ 
  xml: query 작성.
