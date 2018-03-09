@@ -27,53 +27,53 @@ public class NsAlimTalkServiceImpl extends NSITAbstractServiceImpl implements
 	
 	/* 클래스 전역 변수 선언 */
 	String	 i_recvr_tel
-			 ,i_send_to_tel
-			 ,i_msg
-			 ,i_sms_msg
-			 ,i_msg_cd="1"
-			 ,i_tplt_id
-			 ,i_sms_kind_cd
-			 ,i_sms_limit_yn
-			 ,i_lms_title
-			 ,i_lsc_cd
-			 ,i_wbl_num
-			 ,i_resv_send_dttm
-			 ,i_vndr_cd
-			 ,i_goods_cd
-			 ,i_cust_num ="1212"
-			 ,i_order_num
-			 ,i_order_seq
-			 ,i_except_yn
-			 ,i_team_cd
-			 ,i_camp_id
-			 ,i_cust_cmpln_num
-			 ,i_bttn_title
-			 ,i_bttn_url
-			 ,i_note_1
-			 ,i_note_2
-			 ,i_note_3
-			 ,i_note_4
-			 ,i_note_5
-			 ,i_note_6
-			 ,i_note_7
-			 ,i_note_8
-			 ,i_note_9
-			 ,i_note_10
-			 ,i_user_id
-			 ,o_rtn_code
-			 ,o_rtn_msg;
+		 ,i_send_to_tel
+		 ,i_msg
+		 ,i_sms_msg
+		 ,i_msg_cd="1"
+		 ,i_tplt_id
+		 ,i_sms_kind_cd
+		 ,i_sms_limit_yn
+		 ,i_lms_title
+		 ,i_lsc_cd
+		 ,i_wbl_num
+		 ,i_resv_send_dttm
+		 ,i_vndr_cd
+		 ,i_goods_cd
+		 ,i_cust_num ="1212"
+		 ,i_order_num
+		 ,i_order_seq
+		 ,i_except_yn
+		 ,i_team_cd
+		 ,i_camp_id
+		 ,i_cust_cmpln_num
+		 ,i_bttn_title
+		 ,i_bttn_url
+		 ,i_note_1
+		 ,i_note_2
+		 ,i_note_3
+		 ,i_note_4
+		 ,i_note_5
+		 ,i_note_6
+		 ,i_note_7
+		 ,i_note_8
+		 ,i_note_9
+		 ,i_note_10
+		 ,i_user_id
+		 ,o_rtn_code
+		 ,o_rtn_msg;
 
 	/* method 내부 로직 변수 */
 	String	 v_msg_id
-			 ,v_msg_seq
-			 ,v_send_msg
-			 ,v_temp_msg
-			 ,v_recvr_tel
-			 ,v_only_sms
-			 ,v_except_yn="Y"
-			 ,v_except_desc
-			 ,v_swtr_lsc_cd
-			 ,v_sms_use_cnt;
+		 ,v_msg_seq
+		 ,v_send_msg
+		 ,v_temp_msg
+		 ,v_recvr_tel
+		 ,v_only_sms
+		 ,v_except_yn="Y"
+		 ,v_except_desc
+		 ,v_swtr_lsc_cd
+		 ,v_sms_use_cnt;
 	 String v_sms_conv_yn ;
 	 Object obLsc;
 	 
@@ -219,11 +219,11 @@ public class NsAlimTalkServiceImpl extends NSITAbstractServiceImpl implements
 		if(v_sms_conv_yn=="N"){
 			
 			/*AlimTalk: Controller에서 받아온 Map 변수 inVar를 DAO에 전달.*/
-				System.out.println("");
-				System.out.println("알림톡 [ServiceImpl -> DAO 데이터 송신]");
-				System.out.println("");
-				
-				NsAlimTalkDAO.commAlimTrmsInf(inVar);
+			System.out.println("");
+			System.out.println("알림톡 [ServiceImpl -> DAO 데이터 송신]");
+			System.out.println("");
+
+			NsAlimTalkDAO.commAlimTrmsInf(inVar);
 		}else{
 			
 			System.out.println("SMS발송이 아닙니다.");
@@ -231,7 +231,7 @@ public class NsAlimTalkServiceImpl extends NSITAbstractServiceImpl implements
 		}
 			/*SMS*/
 			try {
-				//NsAlimTalkDAO.commSmsTrmsInf(inVar);
+			//NsAlimTalkDAO.commSmsTrmsInf(inVar);
 			} catch (Exception e) {
 				o_rtn_code = "-2";
 				o_rtn_msg = "SMS전송 에러발생 !";
