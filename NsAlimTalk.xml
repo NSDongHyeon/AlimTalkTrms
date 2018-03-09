@@ -7,21 +7,21 @@
 
 	<select id="NsAlimTalkDAO.smsUseCount" parameterClass="java.util.Map" resultClass="egovMap">
 			SELECT  COUNT(1) AS CNT
-			FROM		OR_UNITY_CUST_BAS
+			FROM	OR_UNITY_CUST_BAS
 			WHERE CUST_NUM = #i_cust_num#
 				AND NVL(SMS_RECV_YES, 'N') != 'N'	
 	</select>
 
 	<select id="NsAlimTalkDAO.SwtrLscCd" parameterClass="java.util.Map" resultClass="egovMap">
 			SELECT  CD_NOTE_5
-			FROM		COMM_CD_DTL
+			FROM	COMM_CD_DTL
 			WHERE	COMM_CD_NM = 'LSC_CD'
 				AND COMM_CD_VAL = #i_lsc_cd#
 	</select>
 
 	<select id="NsAlimTalkDAO.smsConvYN" parameterClass="java.util.Map" resultClass="egovMap">
 			SELECT  COMM_CD_INSTC
-			FROM		COMM_CD_DTL
+			FROM	COMM_CD_DTL
 			WHERE	COMM_CD_NM = 'ALIM_SMS_CONV_YN'
 					AND  COMM_CD_VAL = 'CONV_YN'
 	</select>
@@ -32,8 +32,8 @@
 	
 	<insert id="NsAlimTalkDAO.commAlimTrmsInf" parameterClass="java.util.Map" >
 			INSERT INTO NSMAIN.COMM_ALIM_TRMS_INF (
-					MSG_ID
-					, RECVR_TEL
+			MSG_ID
+			, RECVR_TEL
 	                , MSG_CTNT
 	                , SMS_MSG_CTNT
 	                , SEND_TO_TEL
@@ -91,7 +91,7 @@
 	                , #i_bttn_title#
 	                , #i_bttn_url#
 	                , null
- 					, NVL( #i_user_id#, 'IT' )
+ 			, NVL( #i_user_id#, 'IT' )
 	                , SYSDATE
 	                , NVL( #i_user_id#, 'IT' )
 	                , SYSDATE
@@ -128,7 +128,7 @@
 					, FINAL_RVIS_DTTM
 			) VALUES (
 					SQ_COMM_SMS_TRMS_INF.NEXTVAL
-	                , NVL(#i_team_cd#, 'IT' )
+	               			, NVL(#i_team_cd#, 'IT' )
 					, NVL(#i_user_id#, 'IT' )
 					, '1'
 					, #v_recvr_tel#
@@ -137,7 +137,6 @@
 					, '00'
 					, #i_msg_cd#
 					, 'N'
-					, NULL
 					, NVL(#i_order_num#, 0 )
 					, NVL(#i_order_seq#, 0 )
 					, NVL(#i_cust_num#, 0 )
