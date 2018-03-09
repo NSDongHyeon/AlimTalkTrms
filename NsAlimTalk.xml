@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="NsAlimTalk">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+
+	<select id="NsAlimTalkDAO.smsUseCount" parameterClass="java.util.Map" resultClass="egovMap">
+			SELECT  COUNT(1) AS CNT
+			FROM		OR_UNITY_CUST_BAS
+			WHERE CUST_NUM = #i_cust_num#
+				AND NVL(SMS_RECV_YES, 'N') != 'N'	
+	</select>
+
+	<select id="NsAlimTalkDAO.SwtrLscCd" parameterClass="java.util.Map" resultClass="egovMap">
+			SELECT  CD_NOTE_5
+			FROM		COMM_CD_DTL
+			WHERE	COMM_CD_NM = 'LSC_CD'
+				AND COMM_CD_VAL = #i_lsc_cd#
+	</select>
+
+	<select id="NsAlimTalkDAO.smsConvYN" parameterClass="java.util.Map" resultClass="egovMap">
+			SELECT  COMM_CD_INSTC
+			FROM		COMM_CD_DTL
+			WHERE	COMM_CD_NM = 'ALIM_SMS_CONV_YN'
+					AND  COMM_CD_VAL = 'CONV_YN'
+	</select>
+	
+<!-- SMS 미사용 고객 SMS 전송 제외를 위해 COUNT -->
+<!--  스위트래커 택배사 코드로 변경하기 위해 조회 -->
+<!-- SMS 전환 여부를 반환하기 위해 조회 -->
+	
+	<insert id="NsAlimTalkDAO.commAlimTrmsInf" parameterClass="java.util.Map" >
+			INSERT INTO NSMAIN.COMM_ALIM_TRMS_INF (
+					MSG_ID
+					, RECVR_TEL
+	                , MSG_CTNT
+	                , SMS_MSG_CTNT
+	                , SEND_TO_TEL
+	                , SMS_KIND_CD
+	                , SMS_LIMIT_YN
+	                , LMS_TITLE
+	                , TPLT_ID
+	                , SEND_PK
+	                , LSC_CD
+	                , WBL_NUM
+	                , MALL_CD
+	                , RESV_SEND_DTTM
+	                , VNDR_CD
+	                , GOODS_CD
+	                , CUST_NUM
+	                , ORDER_NUM
+	                , ORDER_SEQ
+	                , EXCPT_YN
+	                , MSG_CD
+	                , TRMS_STAT_CD
+	                , TEAM_CD
+	                , CAMP_ID
+	                , BTTN_TITLE
+	                , BTTN_URL
+	                , NOTE1
+	                , INIT_REGI_PIC
+	                , INIT_REGI_DTTM
+	                , FINAL_RVIS_PIC
+	                , FINAL_RVIS_DTTM
+            ) VALUES (
+            		'NS'||LPAD(SQ_LO_SMART_MSG_ID.NEXTVAL, 18, 0)
+	                , #v_recvr_tel#
+	                , #i_msg#
+	                , #i_sms_msg#
+	                , #i_send_to_tel#
+	                , #i_sms_kind_cd#
+	                , #i_sms_limit_yn#
+	                , #i_lms_title#
+	                , #i_tplt_id#
+	                , '89823b83f2182b1e229c2e95e21cf5e6301eed98'
+	                , #v_swtr_lsc_cd#
+	                , #i_wbl_num#
+	                , '01'   
+	                , #i_resv_send_dttm#
+	                , #i_vndr_cd#
+	                , #i_goods_cd#
+	                , #i_cust_num#
+	                , #i_order_num#
+	                , #i_order_seq#
+	                , #v_except_yn#
+	                , #i_msg_cd#
+	                , DECODE(#v_except_yn#, 'N', '00', '30')
+	                , 'IT'
+	                , NVL( #i_team_cd#, 'IT' ) 
+	                , #i_bttn_title#
+	                , #i_bttn_url#
+	                , null
+ 					, NVL( #i_user_id#, 'IT' )
+	                , SYSDATE
+	                , NVL( #i_user_id#, 'IT' )
+	                , SYSDATE
+            )
+	</insert>	
+			
+	<insert id="NsAlimTalkDAO.commSmsTrmsInf">
+			INSERT INTO NSMAIN.COMM_SMS_TRMS_INF(
+					SMS_ID
+					,TEAM_CD
+					, USER_ID
+					, PRIORRANK
+					, RECVR_TEL
+					, SEND_TO_TEL
+					, SMS
+					, TRMS_QTY_SPR
+					, MSG_CD
+					, TRMS_STAT
+					, TRMS_RSLT
+					, ORDER_NUM
+					, ORDER_SEQ
+					, CUST_NUM
+					, VNDR_CD
+					, GOODS_CD
+					, LMS_MSG
+					, CUST_CMPLN_NUM
+					, EXCPT_YN
+					, ETC
+					, URL_YN
+					, MSG_TYPE
+					, INIT_REGI_PIC
+					, INIT_REGI_DTTM
+					, FINAL_RVIS_PIC
+					, FINAL_RVIS_DTTM
+			) VALUES (
+					SQ_COMM_SMS_TRMS_INF.NEXTVAL
+	                , NVL(#i_team_cd#, 'IT' )
+					, NVL(#i_user_id#, 'IT' )
+					, '1'
+					, #v_recvr_tel#
+					, #i_send_to_tel#
+					, DECODE(#i_sms_kind_cd#, 'S', #v_send_msg#, NVL(#i_lms_title#,'[NS홈쇼핑]'))
+					, '00'
+					, #i_msg_cd#
+					, 'N'
+					, NULL
+					, NVL(#i_order_num#, 0 )
+					, NVL(#i_order_seq#, 0 )
+					, NVL(#i_cust_num#, 0 )
+					, #i_vndr_cd#
+					, #i_goods_cd#
+					, DECODE(#i_sms_kind_cd#, 'L',#i_sms_msg#, '')
+					, #i_cust_cmpln_num#
+					, #v_except_yn#
+					, #v_except_desc#
+					, DECODE(#i_sms_kind_cd#, 'S', 'A', 'L', 'L')
+					, DECODE(#i_sms_kind_cd#, 'S', 'SMS', 'L', 'LMS')
+					, NVL(#i_user_id#, 'IT' )
+					, SYSDATE
+					, NVL(#i_user_id#, 'IT' )
+					, SYSDATE
+			)	
+	</insert>				
+
+</sqlMap>
