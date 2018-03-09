@@ -12,6 +12,6 @@
  
  Service: 프로시저의 조건, 예외처리 로직을 구현.
  
- DAO: Select query의 결과값을 list 형태로 받거나 input data를 Object 형태로 Insert query에 넘겨주는 기능.
+ DAO: SELECT query의 결과값을 list 형태로 받거나 input data를 Object 형태로 INSERT query에 넘겨주는 기능.
  
  xml: query 작성.
